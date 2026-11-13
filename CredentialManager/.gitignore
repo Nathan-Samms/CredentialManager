@@ -1,0 +1,16 @@
+# Build output
+target/
+out/
+
+# IntelliJ
+.idea/
+*.iml
+
+# NetBeans
+nbproject/private/
+build/
+dist/
+
+# Vault files hold real passwords: never commit them
+vault.dat
+*.dat.tmp

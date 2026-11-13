@@ -1,0 +1,52 @@
+
+=== 1. CREATE - add ten credentials (seed data) ===
+Last credential saved was given id 10 automatically - the user never types an id.
+
+=== 2. READ - list every credential ===
+#1  https://mail.example.com       jordan.demo          rotate  90 days  favorite
+#2  https://bank.example.net       jdemo1234            rotate  60 days  favorite
+#3  https://shop.example.org       jordan@example.org   rotate 120 days  
+#4  https://streaming.example.tv   family-plan          rotate 180 days  
+#5  https://school.example.edu     jdemo                rotate  90 days  favorite
+#6  https://github.example.dev     jordan-dev           rotate  90 days  favorite
+#7  https://cloud.example.io       jordan.demo          rotate 365 days  
+#8  https://forum.example.net      jd_forum             rotate 365 days  
+#9  https://utility.example.com    acct-55501           rotate 120 days  
+#10 https://travel.example.org     j.demo               rotate 150 days  
+(10 credentials)
+
+=== 3. READ ONE - findById(3) ===
+#3  https://shop.example.org       jordan@example.org   rotate 120 days  
+
+=== 4. UPDATE - change password, rotation and favorite of credential #10 ===
+After update: #10 https://travel.example.org     j.demo               rotate  60 days  favorite
+Credentials stored: 10 (update did not add a row)
+
+=== 5. DELETE - remove credential #5 ===
+Deleting: #5  https://school.example.edu     jdemo                rotate  90 days  favorite
+findById(5) afterwards -> null
+#1  https://mail.example.com       jordan.demo          rotate  90 days  favorite
+#2  https://bank.example.net       jdemo1234            rotate  60 days  favorite
+#3  https://shop.example.org       jordan@example.org   rotate 120 days  
+#4  https://streaming.example.tv   family-plan          rotate 180 days  
+#6  https://github.example.dev     jordan-dev           rotate  90 days  favorite
+#7  https://cloud.example.io       jordan.demo          rotate 365 days  
+#8  https://forum.example.net      jd_forum             rotate 365 days  
+#9  https://utility.example.com    acct-55501           rotate 120 days  
+#10 https://travel.example.org     j.demo               rotate  60 days  favorite
+(9 credentials)
+
+=== 6. BAD INPUT - each is rejected and nothing stored changes ===
+https://blank.example.com        rotation="" -> rejected: Rotation days is required.
+https://words.example.com        rotation="ninety" -> rejected: Rotation days must be a whole number, for example 90.
+https://negative.example.com     rotation="-5" -> rejected: Rotation days must be greater than zero: -5
+https://zero.example.com         rotation="0" -> rejected: Rotation days must be greater than zero: 0
+(no site)                        rotation="30" -> rejected: Site URL cannot be empty.
+https://nopassword.example.com   rotation="30" -> rejected: Password cannot be empty.
+findById(99)   -> null
+deleteById(99) -> rejected: No credential with id 99 to delete.
+update id 99   -> rejected: No credential with id 99 to update.
+Credentials stored before: 9, after: 9
+
+=== 7. DEFENSIVE COPY - changing the returned list does not change the repository ===
+Cleared the returned list (size 0); repository still holds 9 credentials.
