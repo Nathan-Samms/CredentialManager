@@ -7,19 +7,17 @@ import credentialmanager.model.InMemoryCredentialRepository;
 import credentialmanager.model.VaultException;
 
 /**
- * Milestone 2: a console-only Main (no GUI). It creates, lists, updates and
+ * @author Jordan parmer, Nathan Samms
+ * Console-only Main (no GUI). Creates, lists, updates and
  * deletes credentials through the repository and prints the result of each
- * step, then tests the bad-input cases: an empty or negative rotation period,
- * one typed as words, an empty site or password, and an id that does not exist.
+ * step, then tests the bad-input cases.
  *
- * In Milestone 3 this becomes ConsoleMain and Main becomes the Swing launcher.
  *
- * @author [Partner 1 name] and [Partner 2 name]
  */
 public class Main {
 
     public static void main(String[] args) {
-        // Polymorphism (Unit 8): the variable's type is the interface.
+        // Polymorphism
         CredentialRepository repo = new InMemoryCredentialRepository();
 
         heading("1. CREATE - add ten credentials (seed data)");
@@ -84,10 +82,7 @@ public class Main {
                 + repo.findAll().size() + " credentials.");
     }
 
-    /**
-     * Mimics what the Controller will do with the form in M3: turn the typed
-     * rotation text into an int, then let the entity validate the rest.
-     */
+    //Mimics controller, TBA for M3
     private static void tryCreate(CredentialRepository repo, String site, String username,
                                   String password, String rotationText) {
         String label = String.format("%-32s rotation=\"%s\"", site.isEmpty() ? "(no site)" : site, rotationText);

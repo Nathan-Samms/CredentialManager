@@ -1,16 +1,12 @@
 package credentialmanager.model;
 
 /**
- * The entity: one Credential object = one record (one future table row), a
+ * @author Jordan Parmer, Nathan Samms
+ * Entity: one Credential object = one record (one future table row), a
  * saved website login.
  *
  * Fields: id, siteUrl, username, password, notes, rotationDays (how often the
  * password should be changed) and favorite (true/false).
- *
- * Unit 6 - encapsulation: every field is private, reached through accessors,
- * and the setters reject bad values, so an invalid credential can never exist.
- *
- * @author [Partner 1 name]
  */
 public class Credential {
 
@@ -24,17 +20,19 @@ public class Credential {
     private int rotationDays = 90;
     private boolean favorite;
 
-    /** An empty credential with default values (used later when loading stored data). */
+    /**Constructor chain */
+
+    //Empty credential w/ default values
     public Credential() {
     }
 
-    /** A brand-new credential: no id yet (Create). */
+    //Brand new credential
     public Credential(String siteUrl, String username, String password,
                       String notes, int rotationDays, boolean favorite) {
         this(0, siteUrl, username, password, notes, rotationDays, favorite);
     }
 
-    /** A credential that already has an id (Update, or loading stored data). Unit 7 - overloading. */
+    //Credential with an ID
     public Credential(int id, String siteUrl, String username, String password,
                       String notes, int rotationDays, boolean favorite) {
         setId(id);
@@ -100,7 +98,7 @@ public class Credential {
         return rotationDays;
     }
 
-    /** Rejects zero or negative here, in the entity - validation as encapsulation (brief 2.6). */
+    //Setter rejects bad values
     public void setRotationDays(int rotationDays) {
         if (rotationDays <= 0) {
             throw new IllegalArgumentException(
@@ -117,7 +115,7 @@ public class Credential {
         this.favorite = favorite;
     }
 
-    /** One console-friendly line. Deliberately leaves the password out so it cannot leak into output. */
+    //Avoid leaking password
     @Override
     public String toString() {
         return String.format("#%-2d %-30s %-20s rotate %3d days  %s",

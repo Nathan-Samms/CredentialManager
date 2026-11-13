@@ -1,6 +1,5 @@
 /**
- * Controller layer - added in Milestone 3: CredentialController, the only class
- * that knows both the model and the view, and ClipboardCleaner. Empty in Milestone 2.
- * Rule (brief 2.4): its repository field is declared as CredentialRepository.
+ * @author Jordan Parmer, Nathan Samms
+ * Credential controller to be added in M3
  */
 package credentialmanager.controller;

@@ -4,20 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Stores credentials in an ArrayList and nothing else; everything is lost when
- * the program ends. Written first (brief 2.2) so the View and Controller can be
- * built in M3 before any file storage exists - and kept as the demo fallback.
- *
- * @author [Partner 2 name]
+ * @author Jordan parmer, Nathan Samms
+ * Stores credentials in an ArrayList (Volatile on program end). Temporary until M4 when persistence is implemented with
+ * encrypted storage to file
  */
 public class InMemoryCredentialRepository implements CredentialRepository {
 
     private final List<Credential> credentials = new ArrayList<>();
     private int nextId = 1;
 
+    //Return defensive copy
     @Override
     public List<Credential> findAll() {
-        return new ArrayList<>(credentials);     // defensive copy - Unit 7
+        return new ArrayList<>(credentials);
     }
 
     @Override
@@ -35,14 +34,19 @@ public class InMemoryCredentialRepository implements CredentialRepository {
         if (credential == null) {
             throw new IllegalArgumentException("Cannot save a missing credential.");
         }
-        if (credential.getId() == 0) {                       // Create
-            credential.setId(nextId++);                      // carry the new id back onto the object
+
+        // Create
+        if (credential.getId() == 0) {
+            credential.setId(nextId++);
             credentials.add(credential);
             return credential;
         }
-        for (int i = 0; i < credentials.size(); i++) {       // Update
+
+        //Update
+        for (int i = 0; i < credentials.size(); i++) {
             if (credentials.get(i).getId() == credential.getId()) {
-                credentials.set(i, credential);              // replace in place: order is kept
+                //Replace in place
+                credentials.set(i, credential);
                 return credential;
             }
         }

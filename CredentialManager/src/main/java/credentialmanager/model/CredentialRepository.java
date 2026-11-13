@@ -3,24 +3,21 @@ package credentialmanager.model;
 import java.util.List;
 
 /**
- * The contract (Unit 11). In M2 it has one implementation
- * (InMemoryCredentialRepository); in M4 a persistent one
- * (EncryptedFileCredentialRepository) implements the same interface, with no
- * methods added, and is swapped in by changing one line of Main.
- *
- * @author [Partner 1 name]
+ * @author Jordan Parmer, Nathan Samms
+ * Contract for repo implementation (In-memory for M2); M4 will implement with persistence
  */
+
 public interface CredentialRepository {
 
-    /** Read: every stored credential, as a copy of the internal list. */
+    //Read every stored credential
     List<Credential> findAll();
 
-    /** Finds one credential by id; returns null if none has that id. */
+    //Find credential by ID
     Credential findById(int id);
 
-    /** Create when credential.getId() == 0, otherwise Update. Returns the saved credential with its id. */
+    //Save Credential when id == 0
     Credential save(Credential credential);
 
-    /** Delete. Throws VaultException if no credential has that id. */
+    //Delete credential (will throw exception if no credential exists with given ID)
     void deleteById(int id);
 }
